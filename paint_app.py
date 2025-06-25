@@ -55,3 +55,28 @@ class PaintApp:
         self.canvas.bind("<B1-Motion>", self.paint)
         self.canvas.bind("<ButtonRelease-1>", self.reset_paint)
         self.canvas.bind("<Button-2>", self.write_text)
+
+            def use_pencil(self):
+        self.stroke_color.set("black")
+        self.canvas.config(cursor="arrow")
+
+    def use_eraser(self):
+        self.stroke_color.set("white")
+        self.canvas.config(cursor="dotbox")
+
+    def select_color(self):
+        color = colorchooser.askcolor(title="Select Color")[1]
+        if color:
+            self.prev_color2.set(self.prev_color.get())
+            self.prev_color.set(color)
+            self.stroke_color.set(color)
+
+    def paint(self, event):
+        x, y = event.x, event.y
+        if self.prev_point != [0, 0]:
+            self.canvas.create_line(self.prev_point[0], self.prev_point[1], x, y,
+                                    fill=self.stroke_color.get(), width=self.stroke_size.get())
+        self.prev_point = [x, y]
+
+    def reset_paint(self, event):
+        self.prev_point = [0, 0]
