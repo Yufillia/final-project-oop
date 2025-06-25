@@ -80,3 +80,19 @@ class PaintApp:
 
     def reset_paint(self, event):
         self.prev_point = [0, 0]
+
+    def write_text(self, event):
+        self.canvas.create_text(event.x, event.y, text=self.text_value.get(), fill=self.stroke_color.get())
+
+    def save_image(self):
+        file = filedialog.asksaveasfilename(defaultextension=".jpg")
+        if file:
+            x = self.root.winfo_rootx()
+            y = self.root.winfo_rooty() + 100
+            x1 = x + self.canvas.winfo_width()
+            y1 = y + self.canvas.winfo_height()
+            ImageGrab.grab().crop((x, y, x1, y1)).save(file)
+            messagebox.showinfo("Saved", f"Image saved to {file}")
+
+    def clear_canvas(self):
+        self.canvas.delete("all")
