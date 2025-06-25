@@ -18,7 +18,7 @@ class PaintApp:
 
         self.setup_ui()
 
-            def setup_ui(self):
+    def setup_ui(self):
         frame1 = tk.Frame(self.root, height=100, width=1100)
         frame1.grid(row=0, column=0, sticky=tk.NW)
 
@@ -56,7 +56,7 @@ class PaintApp:
         self.canvas.bind("<ButtonRelease-1>", self.reset_paint)
         self.canvas.bind("<Button-2>", self.write_text)
 
-            def use_pencil(self):
+    def use_pencil(self):
         self.stroke_color.set("black")
         self.canvas.config(cursor="arrow")
 
@@ -96,3 +96,12 @@ class PaintApp:
 
     def clear_canvas(self):
         self.canvas.delete("all")
+    
+    def run(self):
+        self.root.mainloop()
+
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = PaintApp(root)
+    app.run()
